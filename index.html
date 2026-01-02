@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade Master App</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4f46e5">
+    <link rel="apple-touch-icon" href="icon.png"> 
+</head>
+<body>
+
+    <div class="app-container">
+        <header>
+            <div class="header-title">
+                <h1>Grade Master</h1>
+                <p class="subtitle">Semester Calculator</p>
+            </div>
+            <select id="theme-selector">
+                <option value="theme-soft">☁️ Soft Focus</option>
+                <option value="theme-midnight">🌑 Midnight</option>
+                <option value="theme-latte">☕ Latte</option>
+                <option value="theme-forest">🌲 Deep Forest</option>
+            </select>
+        </header>
+
+        <div class="tabs-container">
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('s1')">Sem 1</button>
+                <button class="tab-btn" onclick="switchTab('s2')">Sem 2</button>
+                <button class="tab-btn" onclick="switchTab('summary')">Result</button>
+            </div>
+        </div>
+
+        <div id="s1" class="tab-content active">
+            <div class="sticky-summary">
+                <div class="summary-content">
+                    <span>Current S1 Average</span>
+                    <span id="s1-avg" class="grade-badge">0.00</span>
+                </div>
+                <button class="btn-add" onclick="addModule('s1')">+ New Module</button>
+            </div>
+            <div id="s1-list" class="module-list">
+                </div>
+        </div>
+
+        <div id="s2" class="tab-content">
+            <div class="sticky-summary">
+                <div class="summary-content">
+                    <span>Current S2 Average</span>
+                    <span id="s2-avg" class="grade-badge">0.00</span>
+                </div>
+                <button class="btn-add" onclick="addModule('s2')">+ New Module</button>
+            </div>
+            <div id="s2-list" class="module-list"></div>
+        </div>
+
+        <div id="summary" class="tab-content">
+            <div class="yearly-report">
+                <h2>Final Verdict</h2>
+                <div class="report-grid">
+                    <div class="report-card">
+                        <p>Semester 1</p>
+                        <h3 id="report-s1">0.00</h3>
+                    </div>
+                    <div class="report-card">
+                        <p>Semester 2</p>
+                        <h3 id="report-s2">0.00</h3>
+                    </div>
+                </div>
+                
+                <div class="report-card total">
+                    <p>YEARLY AVERAGE</p>
+                    <h1 id="year-avg">0.00</h1>
+                    <div id="verdict-container">
+                        <p id="verdict">Pending...</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="danger-zone">
+                <button class="btn-danger" onclick="resetAllData()">Reset Everything</button>
+            </div>
+        </div>
+
+    </div>
+
+    <template id="module-template">
+        <div class="module-card">
+            <div class="module-top">
+                <input type="text" class="input-name" placeholder="Subject Name (e.g. Algebra)" value="New Module">
+                <button class="btn-delete" title="Delete">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6L6 18M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="module-inputs">
+                <div class="input-wrapper small">
+                    <label>Coeff</label>
+                    <input type="number" class="input-coeff" value="1" min="1">
+                </div>
+                <div class="input-wrapper">
+                    <label>TD (40%)</label>
+                    <input type="number" class="input-td" placeholder="-">
+                </div>
+                <div class="input-wrapper">
+                    <label>TP (40%)</label>
+                    <input type="number" class="input-tp" placeholder="-">
+                </div>
+                <div class="input-wrapper highlight">
+                    <label>Exam (60%)</label>
+                    <input type="number" class="input-exam" placeholder="-">
+                </div>
+            </div>
+            <div class="module-bottom">
+                <span>Average: <strong class="module-result">0.00</strong></span>
+            </div>
+        </div>
+    </template>
+
+    <script src="script.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
+    </script>
+</body>
+</html>
